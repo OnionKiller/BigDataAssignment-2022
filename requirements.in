@@ -5,3 +5,4 @@ pip-chill
 ipykernel
 haversine
 python-dotenv
+googlemaps
