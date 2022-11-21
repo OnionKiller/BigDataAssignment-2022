@@ -3,3 +3,5 @@ numpy
 dask[complete]
 pip-chill
 ipykernel
+haversine
+python-dotenv
