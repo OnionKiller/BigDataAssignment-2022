@@ -168,3 +168,5 @@ xyzservices==2022.9.0
     # via bokeh
 zict==2.2.0
     # via distributed
+
+requests~=2.28.1
