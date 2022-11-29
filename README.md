@@ -24,3 +24,7 @@ Datashader alapú (lehet HoloViz-be integrálva) interaktív, Budapest-térkép 
 
 ### Elemzési feladat
 Algoritmus azon megállók megtalálására, ahova 45 perc alatt, max k átszállással el lehet jutni az I épületből este 10-es indulással. (Demonstráció elég k=1 vagy 2-re.)
+
+## Doc
+
+* [GTFS](doc/gtfs.md)
