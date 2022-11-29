@@ -3,6 +3,7 @@ import requests
 import zipfile
 import pandas as pd
 import io
+import shutil
 
 
 class BKK:
@@ -25,6 +26,15 @@ class BKK:
     def update(self):
         os.remove(self.path)
         self.__download()
+
+    def extract(self):
+        self.__download()
+        if os.path.isdir("temp/bkk"):
+            shutil.rmtree("temp/bkk")
+        archive = zipfile.ZipFile(self.path, 'r')
+        archive.extractall("temp/bkk")
+        for i, path in enumerate(os.listdir("temp/bkk")):
+            os.rename("temp/bkk/" + path, "temp/bkk/" + path.replace(".txt", ".csv"))
 
     def __getFile(self, path):
         self.__download()
