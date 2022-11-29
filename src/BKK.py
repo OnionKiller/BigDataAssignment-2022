@@ -47,28 +47,32 @@ class BKK:
         return pd.read_csv(handler)
 
     def getAgency(self):
-        return self.__getDataFrame("agency.txt")
+        return self.__getDataFrame("agency.txt").set_index('agency_id')
 
     def getCalendarDates(self):
-        return self.__getDataFrame("calendar_dates.txt")
-
-    def getFeedInfo(self):
-        return self.__getDataFrame("feed_info.txt")
+        return self.__getDataFrame("calendar_dates.txt").set_index('service_id')
 
     def getPathways(self):
-        return self.__getDataFrame("pathways.txt")
+        return self.__getDataFrame("pathways.txt").set_index(['pathway_id', 'from_stop_id', 'to_stop_id'])
 
     def getRoutes(self):
-        return self.__getDataFrame("routes.txt")
+        return self.__getDataFrame("routes.txt").set_index(['route_id', 'agency_id'])
 
     def getShapes(self):
-        return self.__getDataFrame("shapes.txt")
+        return self.__getDataFrame("shapes.txt").set_index('shape_id')
 
     def getStopTimes(self):
-        return self.__getDataFrame("stop_times.txt")
+        return self.__getDataFrame("stop_times.txt").set_index(['stop_id', 'trip_id'])
 
     def getStops(self):
-        return self.__getDataFrame("stops.txt")
+        return self.__getDataFrame("stops.txt").set_index('stop_id')
 
     def getTrips(self):
-        return self.__getDataFrame("trips.txt")
+        return self.__getDataFrame("trips.txt").set_index(['trip_id', 'route_id', 'service_id', 'shape_id'])
+
+    def getAll(self):
+        return self.getAgency()\
+            .join(self.getRoutes())\
+            .join(self.getTrips())\
+            .join(self.getStopTimes())\
+            .join(self.getStops())
