@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import os
 import requests
 import zipfile
@@ -62,13 +63,26 @@ class BKK:
         return self.__getDataFrame("shapes.txt").set_index('shape_id')
 
     def getStopTimes(self):
-        return self.__getDataFrame("stop_times.txt").set_index(['stop_id', 'trip_id'])
+        df = self.__getDataFrame("stop_times.txt").set_index(['stop_id', 'trip_id'])
+        df["departure_time"] = df.departure_time.apply(self.convertTime)
+        df["arrival_time"] = df.arrival_time.apply(self.convertTime)
+        return df
+
+    @staticmethod
+    def convertTime(time):
+        t = list(map(lambda x: int(x), time.split(":")))
+        if t[0] < 24:
+            return datetime.today().replace(hour=t[0], minute=t[1], second=t[2], microsecond=0)
+        else:
+            return datetime.today().replace(hour=t[0] - 24, minute=t[1], second=t[2], microsecond=0) + timedelta(days=1)
 
     def getStops(self):
         return self.__getDataFrame("stops.txt").set_index('stop_id')
 
     def getTrips(self):
-        return self.__getDataFrame("trips.txt").set_index(['trip_id', 'route_id', 'service_id', 'shape_id'])
+        df = self.__getDataFrame("trips.txt").set_index(['trip_id', 'route_id', 'service_id', 'shape_id'])
+
+        return df
 
     def getAll(self):
         return self.getAgency()\
