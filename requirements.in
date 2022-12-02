@@ -2,7 +2,7 @@ pandas
 numpy
 dask[complete]
 pip-chill
-ipykernel
+jupyter
 haversine
 python-dotenv
 googlemaps
