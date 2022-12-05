@@ -4,7 +4,7 @@ import pandas as pd
 import googlemaps
 
 from typing import Tuple
-from config import Config
+from src.config import Config
 from tqdm import tqdm
 
 
