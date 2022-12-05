@@ -12,3 +12,4 @@ holoviews
 datashader
 pip-tools
 haversine
+pandas_profiling

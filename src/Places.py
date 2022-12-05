@@ -12,8 +12,8 @@ class Places(object):
 
     __gClient:googlemaps.Client
     #lattitude row index as string
-    lattitude_name:str='stop_lat'
-    longitude_name:str='stop_lon'
+    lattitude_name:str='lat'
+    longitude_name:str='lon'
 
 
 
