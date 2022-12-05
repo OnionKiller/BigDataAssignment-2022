@@ -1,9 +1,10 @@
 pandas
-numpy
-dask[complete]
-pip-chill
+pyarrow
 jupyter
+bamboolib
+pip-chill
 plotly
 holoviews
 datashader
 pip-tools
+haversine
