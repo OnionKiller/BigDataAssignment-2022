@@ -3,6 +3,10 @@ pyarrow
 jupyter
 bamboolib
 pip-chill
+haversine
+python-dotenv
+googlemaps
+tqdm
 plotly
 holoviews
 datashader
