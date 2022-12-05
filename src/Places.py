@@ -52,7 +52,7 @@ class Places(object):
         """Get all bars around points. radius should be defined in the dataframe for each item
         """
         locations_glob = [ z for z in zip(locations[self.lattitude_name],locations[self.longitude_name],locations[radius_row_name])]
-        bar_list_list = [ self.get_bars((dat[0],dat[1]),dat[2]) for dat in tqdm(locations_glob)]
+        bar_list_list = [ self.get_bars((dat[0],dat[1]),dat[2]) for dat in tqdm(locations_glob, position=0, leave=True)]
         r_ = pd.concat(bar_list_list)
         r_ = self._format_bar_df(r_)
         return r_
