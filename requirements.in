@@ -7,3 +7,8 @@ haversine
 python-dotenv
 googlemaps
 tqdm
+plotly
+holoviews
+datashader
+pip-tools
+
