@@ -12,7 +12,7 @@ Az I épületből este 10-kor, tömegközlekedéssel elérhető "kocsmák" (i.e.
 
 ### Kiexportált notebook
 
-[Notebook](doc/final.md)
+[Notebook](doc/final.html)
 
 ### Eredmények újra futtatása
 
