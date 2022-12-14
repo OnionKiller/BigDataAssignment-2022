@@ -10,9 +10,9 @@ Az I épületből este 10-kor, tömegközlekedéssel elérhető "kocsmák" (i.e.
 
 ## Megoldás
 
-### Előre lefuttatott notebook
+### Kiexportált notebook
 
-[Notebook](final.ipynb)
+[Notebook](doc/final.md)
 
 ### Eredmények újra futtatása
 
