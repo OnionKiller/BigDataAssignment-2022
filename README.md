@@ -10,7 +10,7 @@ Az I épületből este 10-kor, tömegközlekedéssel elérhető "kocsmák" (i.e.
 
 ## Megoldás
 
-### Előre lefuttatott notebook
+### Lefuttatott notebook
 
 [Notebook](final.ipynb)
 
@@ -18,6 +18,11 @@ Az I épületből este 10-kor, tömegközlekedéssel elérhető "kocsmák" (i.e.
 
 ```
 pip install -r requirements.txt
+jupyter notebook final.ipynb
+```
+vagy
+```
+conda install --file requirements.txt
 jupyter notebook final.ipynb
 ```
 
