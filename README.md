@@ -10,14 +10,19 @@ Az I épületből este 10-kor, tömegközlekedéssel elérhető "kocsmák" (i.e.
 
 ## Megoldás
 
-### Kiexportált notebook
+### Lefuttatott notebook
 
-[Notebook](doc/final.html)
+[Notebook](final.ipynb)
 
 ### Eredmények újra futtatása
 
 ```
 pip install -r requirements.txt
+jupyter notebook final.ipynb
+```
+vagy
+```
+conda install --file requirements.txt
 jupyter notebook final.ipynb
 ```
 
