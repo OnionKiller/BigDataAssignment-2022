@@ -8,7 +8,6 @@ import shutil
 
 
 class BKK:
-
     def __init__(self, url):
         self.path = "temp/bkk.zip"
         self.url = url
@@ -20,7 +19,7 @@ class BKK:
 
         if not os.path.isfile(self.path):
             r = requests.get(self.url, stream=True)
-            with open(self.path, 'wb') as fd:
+            with open(self.path, "wb") as fd:
                 for chunk in r.iter_content(chunk_size=chunk_size):
                     fd.write(chunk)
 
@@ -32,14 +31,14 @@ class BKK:
         self.__download()
         if os.path.isdir("temp/bkk"):
             shutil.rmtree("temp/bkk")
-        archive = zipfile.ZipFile(self.path, 'r')
+        archive = zipfile.ZipFile(self.path, "r")
         archive.extractall("temp/bkk")
         for i, path in enumerate(os.listdir("temp/bkk")):
             os.rename("temp/bkk/" + path, "temp/bkk/" + path.replace(".txt", ".csv"))
 
     def __getFile(self, path):
         self.__download()
-        archive = zipfile.ZipFile(self.path, 'r')
+        archive = zipfile.ZipFile(self.path, "r")
         return archive.read(path).decode("utf-8")
 
     def __getDataFrame(self, path):
@@ -48,22 +47,24 @@ class BKK:
         return pd.read_csv(handler)
 
     def getAgency(self):
-        return self.__getDataFrame("agency.txt").set_index('agency_id')
+        return self.__getDataFrame("agency.txt").set_index("agency_id")
 
     def getCalendarDates(self):
-        return self.__getDataFrame("calendar_dates.txt").set_index('service_id')
+        return self.__getDataFrame("calendar_dates.txt").set_index("service_id")
 
     def getPathways(self):
-        return self.__getDataFrame("pathways.txt").set_index(['pathway_id', 'from_stop_id', 'to_stop_id'])
+        return self.__getDataFrame("pathways.txt").set_index(
+            ["pathway_id", "from_stop_id", "to_stop_id"]
+        )
 
     def getRoutes(self):
-        return self.__getDataFrame("routes.txt").set_index(['route_id', 'agency_id'])
+        return self.__getDataFrame("routes.txt").set_index(["route_id", "agency_id"])
 
     def getShapes(self):
-        return self.__getDataFrame("shapes.txt").set_index('shape_id')
+        return self.__getDataFrame("shapes.txt").set_index("shape_id")
 
     def getStopTimes(self):
-        df = self.__getDataFrame("stop_times.txt").set_index(['stop_id', 'trip_id'])
+        df = self.__getDataFrame("stop_times.txt").set_index(["stop_id", "trip_id"])
         df["departure_time"] = df.departure_time.apply(self.convertTime)
         df["arrival_time"] = df.arrival_time.apply(self.convertTime)
         return df
@@ -72,21 +73,29 @@ class BKK:
     def convertTime(time):
         t = list(map(lambda x: int(x), time.split(":")))
         if t[0] < 24:
-            return datetime.today().replace(hour=t[0], minute=t[1], second=t[2], microsecond=0)
+            return datetime.today().replace(
+                hour=t[0], minute=t[1], second=t[2], microsecond=0
+            )
         else:
-            return datetime.today().replace(hour=t[0] - 24, minute=t[1], second=t[2], microsecond=0) + timedelta(days=1)
+            return datetime.today().replace(
+                hour=t[0] - 24, minute=t[1], second=t[2], microsecond=0
+            ) + timedelta(days=1)
 
     def getStops(self):
-        return self.__getDataFrame("stops.txt").set_index('stop_id')
+        return self.__getDataFrame("stops.txt").set_index("stop_id")
 
     def getTrips(self):
-        df = self.__getDataFrame("trips.txt").set_index(['trip_id', 'route_id', 'service_id', 'shape_id'])
+        df = self.__getDataFrame("trips.txt").set_index(
+            ["trip_id", "route_id", "service_id", "shape_id"]
+        )
 
         return df
 
     def getAll(self):
-        return self.getAgency()\
-            .join(self.getRoutes())\
-            .join(self.getTrips())\
-            .join(self.getStopTimes())\
+        return (
+            self.getAgency()
+            .join(self.getRoutes())
+            .join(self.getTrips())
+            .join(self.getStopTimes())
             .join(self.getStops())
+        )
